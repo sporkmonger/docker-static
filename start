@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Fail hard and fast
+set -eo pipefail
+
+export ETCD_PORT=${ETCD_PORT:-4001}
+export HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
+export ETCD=$HOST_IP:$ETCD_PORT
+
+echo "[nginx] booting container. ETCD: $ETCD"
+
+# Loop until confd has updated the nginx config
+until /opt/bin/confd -onetime -node $ETCD -config-file /etc/confd/conf.d/nginx.toml; do
+  echo "[nginx] waiting for confd to refresh nginx.conf"
+  sleep 5
+done
+until /opt/bin/confd -onetime -node $ETCD -config-file /etc/confd/conf.d/app.toml; do
+  echo "[nginx] waiting for confd to refresh app.conf"
+  sleep 5
+done
+
+# Run confd in the background to watch the upstream servers
+/opt/bin/confd -interval 10 -node $ETCD &
+echo "[nginx] confd is listening for changes on etcd..."
+
+# Start nginx
+echo "[nginx] starting nginx service..."
+exec /usr/sbin/nginx
