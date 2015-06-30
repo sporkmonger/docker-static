@@ -3,7 +3,7 @@ MAINTAINER Bob Aman <bob@sporkmonger.com>
 
 # Install Nginx & static asset build tools
 RUN apk add --update nginx make curl pngcrush nodejs python \
-      ruby ruby-rdoc ruby-dev g++ && \
+      ruby ruby-rdoc ruby-dev g++ git && \
   rm -rf /var/cache/apk/* && \
   gem install sass -v 3.4.15 && gem install sass-globbing -v 1.0.0 && \
   npm install -g coffee-script uglify-js uglifycss bower
