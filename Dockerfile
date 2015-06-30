@@ -2,9 +2,9 @@ FROM quay.io/sporkmonger/confd:latest
 MAINTAINER Bob Aman <bob@sporkmonger.com>
 
 # Install Nginx & static asset build tools
-RUN apk add --update nginx make curl pngcrush nodejs python ruby g++ && \
+RUN apk add --update nginx make curl pngcrush nodejs python \
+      ruby ruby-rdoc ruby-dev g++ && \
   rm -rf /var/cache/apk/* && \
-  gem install rdoc || : && \
   gem install sass -v 3.4.15 && gem install sass-globbing -v 1.0.0 && \
   npm install -g coffee-script uglify-js uglifycss bower
 
