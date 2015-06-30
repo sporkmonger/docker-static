@@ -21,8 +21,7 @@ RUN /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
 
 # Build assets
 COPY ./assets /opt/src
-RUN mkdir -p /srv/www/js /srv/www/css /srv/www/images && \
-  cd /opt/src && make && make install && make clean && cd -
+RUN mkdir -p /srv/www/js /srv/www/css /srv/www/images
 
 # Add boot script
 COPY ./start /opt/bin/start
@@ -32,3 +31,6 @@ EXPOSE 80 443
 
 # Run the boot script
 CMD /opt/bin/start
+
+# Derivative images should have:
+# RUN cd /opt/src && make && make install && make clean && cd -
