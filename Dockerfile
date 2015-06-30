@@ -2,7 +2,7 @@ FROM quay.io/sporkmonger/confd:latest
 MAINTAINER Bob Aman <bob@sporkmonger.com>
 
 # Install Nginx & static asset build tools
-RUN apk add --update nginx make curl nodejs python g++ && \
+RUN apk add --update nginx make curl pngcrush nodejs python g++ && \
   rm -rf /var/cache/apk/* && \
   npm install -g coffee-script uglify-js node-sass uglifycss bower
 
