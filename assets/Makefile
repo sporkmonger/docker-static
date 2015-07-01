@@ -3,7 +3,10 @@ all: assets
 assets:
 	mkdir -p ./.build/css ./.build/js ./.build/images
 	coffee -o ./.build/js --compile js/*.coffee
-	sass css/**/*.scss ./.build/css/app.css
+	# Using app.css instead of sending directly to ./.build/ gives a more
+	# useful source map.
+	sass --scss --sourcemap=none --line-numbers --style=expanded -r sass-globbing --trace css/main.scss app.css
+	mv app.css* ./.build/css/
 	pngcrush -brute -d ./.build/images/ images/*.png
 	cp -rp images/*.jpg ./.build/images/ || :
 	cp -rp images/*.jpeg ./.build/images/ || :
