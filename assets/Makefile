@@ -15,10 +15,10 @@ assets:
 	cp -rp fonts/* ./.build/fonts/ || :
 
 install: assets
-	cp -rp ./.build/js/* /srv/www/js
-	cp -rp ./.build/css/* /srv/www/css
-	cp -rp ./.build/images/* /srv/www/images
-	cp -rp ./.build/fonts/* /srv/www/fonts
+	cp -rp ./.build/js/* /srv/www/js || :
+	cp -rp ./.build/css/* /srv/www/css || :
+	cp -rp ./.build/images/* /srv/www/images || :
+	cp -rp ./.build/fonts/* /srv/www/fonts || :
 
 clean:
 	rm -rf ./.build
