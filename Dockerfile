@@ -23,7 +23,7 @@ RUN /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
 
 # Build assets
 COPY ./assets /opt/src
-RUN mkdir -p /srv/www/js /srv/www/css /srv/www/images
+RUN mkdir -p /srv/www/js /srv/www/css /srv/www/images /srv/www/fonts
 
 # Add boot script
 COPY ./start /opt/bin/start
