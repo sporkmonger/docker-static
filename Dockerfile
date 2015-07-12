@@ -29,6 +29,9 @@ RUN mkdir -p /srv/www/js /srv/www/css /srv/www/images /srv/www/fonts
 COPY ./start /opt/bin/start
 RUN chmod a+x /opt/bin/confd && chmod a+x /opt/bin/start
 
+# Make sure everything is up-to-date
+RUN /opt/bin/cveck
+
 EXPOSE 80 443
 
 # Run the boot script
